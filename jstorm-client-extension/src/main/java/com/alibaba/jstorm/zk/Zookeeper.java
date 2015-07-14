@@ -11,8 +11,6 @@ import org.apache.zookeeper.KeeperException;
 import org.apache.zookeeper.WatchedEvent;
 import org.apache.zookeeper.ZooDefs;
 import org.apache.zookeeper.data.Stat;
-import org.apache.zookeeper.server.NIOServerCnxn;
-import org.apache.zookeeper.server.NIOServerCnxn.Factory;
 //import org.apache.zookeeper.server.NIOServerCnxn.Factory;
 import org.apache.zookeeper.server.ZooKeeperServer;
 
@@ -202,14 +200,13 @@ public class Zookeeper {
 		}
 	}
 
-	public static Factory mkInprocessZookeeper(String localdir, int port)
+  public static Factory mkInprocessZookeeper(String localdir, int port)
 			throws IOException, InterruptedException {
 		LOG.info("Starting inprocess zookeeper at port " + port + " and dir "
 				+ localdir);
 		File localfile = new File(localdir);
 		ZooKeeperServer zk = new ZooKeeperServer(localfile, localfile, 2000);
-		NIOServerCnxn.Factory factory = new NIOServerCnxn.Factory(
-				new InetSocketAddress(port));
+    Factory factory = new Factory(new InetSocketAddress(port), 0);
 		factory.startup(zk);
 		return factory;
 	}
