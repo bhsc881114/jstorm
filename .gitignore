@@ -1,0 +1,13 @@
+*.settings
+*.classpath
+*.project
+*.bak
+*.class
+class
+target
+*.log
+bin/**
+.idea/**
+*.iml
+*.txt
+
